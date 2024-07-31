@@ -1,0 +1,21 @@
+//Ex_7_Financial_Forecasting
+public class Ex_7_Financial_Forecasting{
+
+      public static double calculateFutureValue(double initialValue, double growthRate, int years) {
+        // Base case: If years is 0, return the initial value
+        if (years == 0) {
+            return initialValue;
+        }
+        // Recursive case: Calculate future value for one less year
+        return calculateFutureValue(initialValue * (1 + growthRate), growthRate, years - 1);
+    }
+
+    public static void main(String[] args) {
+        double initialValue = 1000.0;  // Initial investment
+        double growthRate = 0.05;      // 5% annual growth rate
+        int years = 10;                // Number of years
+
+        double futureValue = calculateFutureValue(initialValue, growthRate, years);
+        System.out.println("Future Value: $" + futureValue);
+    }
+}

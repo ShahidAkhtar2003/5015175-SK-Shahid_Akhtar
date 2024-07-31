@@ -1,0 +1,132 @@
+import java.util.*;
+class prod {
+    private String productId;
+    private String productName;
+    private String category;
+
+    // Constructor
+    public prod(String productId, String productName, String category) {
+        this.productId = productId;
+        this.productName = productName;
+        this.category = category;
+    }
+
+    // Getters
+    public String getProductId() {
+        return productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    @Override
+    public String toString() {
+        return "Product [productId=" + productId + ", productName=" + productName + ", category=" + category + "]";
+    }
+}
+class LinearSearch {
+    public static Product linearSearchById(Product[] products, String productId) {
+        for (Product product : products) {
+            if (product.getProductId().equals(productId)) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public static prod linearSearchByName(Product[] products, String productName) {
+        for (prod product : products) {
+            if (product.getProductName().equals(productName)) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public static Product linearSearchByCategory(Product[] products, String category) {
+        for (Product product : products) {
+            if (product.getCategory().equals(category)) {
+                return product;
+            }
+        }
+        return null;
+    }
+}
+class BinarySearch {
+    public static Product binarySearchById(Product[] products, String productId) {
+        Arrays.sort(products, Comparator.comparing(Product::getProductId));
+        int left = 0, right = products.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int comparison = products[mid].getProductId().compareTo(productId);
+            if (comparison == 0) {
+                return products[mid];
+            } else if (comparison < 0) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return null;
+    }
+
+    public static Product binarySearchByName(Product[] products, String productName) {
+        Arrays.sort(products, Comparator.comparing(Product::getProductName));
+        int left = 0, right = products.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int comparison = products[mid].getProductName().compareTo(productName);
+            if (comparison == 0) {
+                return products[mid];
+            } else if (comparison < 0) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return null;
+    }
+
+    public static Product binarySearchByCategory(Product[] products, String category) {
+        Arrays.sort(products, Comparator.comparing(Product::getCategory));
+        int left = 0, right = products.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int comparison = products[mid].getCategory().compareTo(category);
+            if (comparison == 0) {
+                return products[mid];
+            } else if (comparison < 0) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return null;
+    }
+}
+public class Ex_2_Ecommerce_Platform_Search_Function{
+    public static void main(String[] args) {
+        Product[] products = {
+            new Product("P001", "Laptop", "Electronics"),
+            new Product("P002", "Smartphone", "Electronics"),
+            new Product("P003", "Tablet", "Electronics"),
+            new Product("P004", "Headphones", "Accessories"),
+            new Product("P005", "Charger", "Accessories")
+        };
+
+        // Linear Search
+        System.out.println("Linear Search by ID: " + LinearSearch.linearSearchById(products, "P003"));
+        System.out.println("Linear Search by Name: " + LinearSearch.linearSearchByName(products, "Headphones"));
+        System.out.println("Linear Search by Category: " + LinearSearch.linearSearchByCategory(products, "Accessories"));
+
+        // Binary Search
+        System.out.println("Binary Search by ID: " + BinarySearch.binarySearchById(products, "P003"));
+        System.out.println("Binary Search by Name: " + BinarySearch.binarySearchByName(products, "Headphones"));
+        System.out.println("Binary Search by Category: " + BinarySearch.binarySearchByCategory(products, "Accessories"));
+    }
+}
